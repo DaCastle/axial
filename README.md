@@ -1,6 +1,39 @@
 # Axial
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2.
+This project uses NodeJS version 20.17.0.
+
+## Dakota's Notes
+
+##### Component Structure
+I usually mimic my folder structure to the project UI design. As the prompt references two simple components, each on their own route, I created the components as siblings.
+
+I created a (shared) custom pipe to handle formatting a money value, as this is a great use case to do so.
+
+##### Input Validation
+For the money input element, setting maxLength - helps prevent buffer & DoS attack, reduces XSS max-payload size, also helpful for (backend) data integrity.
+
+I added FormControl validators - one to simply mark the field as required, and the other to validate allowing a fractional value, and a single letter 'k/m/b/t' (case insensitive) for thousand/million/etc.
+
+The money-input service value only gets updated if the input field is in a valid state.
+
+Since I'm only utilizing the input value through string interpolation, which angular always renders as plaintext, there is not a concern of XSS for the context of this prompt.
+
+##### Passing Data
+As form data frequently has a reason to be persisted, I decided to utilize a money-input service to manage the money input value, as opposed to using the angular router to pass the input value around.
+
+I prefer to only utilize route params to identify uniqueness, like an id, to keep url links as clean/simple as possible.
+
+The service and components use the observe/subscribe pattern.
+
+The money-results component uses the async pipe to auto-handle subscribe/unsubscribe.
+
+##### Unit Tests
+Step 1 - use GPT
+
+Step 2 - verify tests are logical
+
+Step 3 - have a test point out that the money input was not being validated on every keystroke, which I wanted, and updated the component to match my desire
 
 ## Development server
 

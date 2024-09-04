@@ -1,0 +1,20 @@
+<form class="money-form">
+  <mat-form-field class="money-full-width">
+    <mat-label>Money Desired</mat-label>
+    <!-- setting maxLength - helps prevent buffer & DoS atk, reduces XSS max-payload size,
+    also helpful for (backend) data integrity -->
+    <input
+      matInput
+      placeholder="250k, 10m, .5b"
+      [formControl]="inputControl"
+      maxlength="20"
+    />
+    <mat-error *ngIf="inputControl.hasError('required')">
+      Amount is required.
+    </mat-error>
+    <mat-error *ngIf="inputControl.hasError('pattern')">
+      Invalid currency format. Please enter a valid amount (e.g., 250k, 10m,
+      .5b).
+    </mat-error>
+  </mat-form-field>
+</form>

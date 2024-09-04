@@ -1,0 +1,10 @@
+<h5>Money Desired (formatted)</h5>
+
+<!-- since the custom pipe handles the formatting, we can use the async pipe and let it
+handle subscribing/unsubscribing for us -->
+<ng-container *ngIf="moneyValue$ | async as moneyValue">
+  <!-- rendered as plain text - angular escapes special characters (no XSS concern) -->
+  <!-- currencyFormatter as pipe - display-only content is perf use case for creating custom pipe,
+  improves SoC by keeping it out of the component or service -->
+  <p>{{ moneyValue | currencyFormatter }}</p>
+</ng-container>

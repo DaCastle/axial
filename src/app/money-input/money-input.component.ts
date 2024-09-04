@@ -42,7 +42,11 @@ export class MoneyInputComponent implements OnInit, OnDestroy {
     this.inputControl.valueChanges
       .pipe(takeUntil(this.destroy$))
       .subscribe((newValue) => {
-        this.moneyInputService.setMoneyValue(newValue || '');
+        if (this.inputControl.valid) {
+          this.moneyInputService.setMoneyValue(newValue || '');
+        } else {
+          this.moneyInputService.setMoneyValue('');
+        }
         // // Manually trigger validation
         this.inputControl.markAsTouched();
       });
